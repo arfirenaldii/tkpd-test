@@ -5,9 +5,6 @@ import './App.css';
 
 import Header from './components/Header';
 
-const CLIENT_ID = 8784;
-const REDIRECT_URI = 'http://localhost:3000/';
-
 export const ANIME = gql`
   query Page($page: Int, $perPage: Int) {
     Page(page: $page, perPage: $perPage) {
@@ -42,8 +39,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Header />
-        <a href={`https://anilist.co/api/v2/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`}>Login with AniList</a>
-        <a href={`https://anilist.co/api/v2/oauth/authorize?client_id=${CLIENT_ID}&response_type=token`}>Login with AniList</a>
         {data?.Page?.media.map((media) =>
           <div key={media.id}>
             <img src={media.coverImage.medium} alt={media.title.english} />
