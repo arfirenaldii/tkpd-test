@@ -12,7 +12,6 @@ function Header() {
     return (
         <Wrapper>
             <Link to="/">Home</Link>
-            <Link to="/anime">Anime</Link>
             <Link to="/collection">Collection</Link>
         </Wrapper>
     );
