@@ -159,7 +159,7 @@ function Anime({ id }) {
               checked={checkedCollections.some(e => e.name === collection.name)}
               onChange={(event) => handleChangeCollections(event, index)}
             />
-            <label>{collection.name} {index}</label>
+            <label>{collection.name}</label>
           </div>
         )}
         <div>
@@ -170,8 +170,8 @@ function Anime({ id }) {
         <div>
           <input
             type="text"
-            placeholder="Search text"
-            name="search"
+            placeholder="Add Collection"
+            name="collection"
             value={collectionText}
             onChange={e => setCollectionText(e.target.value)}
           />

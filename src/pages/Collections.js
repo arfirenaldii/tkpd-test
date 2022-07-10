@@ -1,9 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-// import styled from '@emotion/styled';
+import styled from '@emotion/styled';
+import { Link } from '@reach/router';
 
 import Layout from '../components/Layout';
 import { useLocalStorage } from '../utils/useLocalStorage';
+
+const Wrapper = styled(Link)({
+  cursor: 'pointer'
+});
 
 function Collections() {
   const [collections, setCollections] = useLocalStorage('collections', []);
@@ -172,8 +177,6 @@ function Collections() {
     setCollections([])
   }
 
-  console.log(collections)
-
   return (
     <Layout>
       <h1>Collection</h1>
@@ -185,8 +188,8 @@ function Collections() {
         <button onClick={() => removeCollection()}>Remove Collection</button>
       </div>
       <br />
-      {collections && collections.map(collection =>
-        <div key={collection.name}>
+      {collections && collections.map((collection, index) =>
+        <Wrapper key={collection.name} to={`/collection/${index}`}>
           {collection.animes.length > 0 &&
             <img
               src={collection.animes[0].coverImage.medium}
@@ -194,7 +197,7 @@ function Collections() {
             />
           }
           <p>{collection.name}</p>
-        </div>
+        </Wrapper>
       )}
     </Layout>
   );
