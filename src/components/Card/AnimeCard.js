@@ -6,29 +6,29 @@ const Wrapper = styled(Link)({
   display: 'flex',
   flexDirection: 'column',
   width: 'min-content',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  textDecoration: 'none',
+  color: 'unset',
 })
 
 const CoverImage = styled.img({
-  height: '185px'
+  height: '185px',
+  borderRadius: '5px'
 })
 
 const Title = styled.div({
-  // textOverflow: 'ellipsis',
-  // overflow: 'hidden',
-  // WebkitLineClamp: '2'
-
-  // whiteSpace: 'nowrap',
-  // overflow: 'hidden',
-  // textOverflow: 'ellipsis',
-  // WebkitLineClamp: '2'
+  overflow: 'hidden',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '2',
+  textDecoration: 'none',
 })
 
 const AnimeCard = ({ media }) => {
   return (
     <Wrapper to={`/anime/${media.id}`}>
       <CoverImage src={media.coverImage.large} alt={media.title.romaji} />
-      <Title>{media.id} {media.title.romaji}</Title>
+      <Title>{media.title.romaji}</Title>
     </Wrapper>
   );
 };

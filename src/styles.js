@@ -7,7 +7,7 @@ export const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
 export const unit = 8;
 export const widths = {
   largePageWidth: 1600,
-  regularPageWidth: 1100,
+  regularPageWidth: 1000,
   textPageWidth: 800,
 };
 // export const colors = {
