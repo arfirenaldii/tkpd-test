@@ -24,12 +24,13 @@ export default Layout;
 
 /** Layout styled components */
 const PageContainer = styled.div((props) => ({
-  display: 'flex',
-  justifyContent: props.grid ? 'center' : 'top',
-  flexDirection: props.grid ? 'row' : 'column',
-  flexWrap: 'wrap',
-  alignSelf: 'center',
-  flexGrow: 1,
+  // display: 'flex',
+  // justifyContent: props.grid ? 'center' : 'top',
+  // flexDirection: props.grid ? 'row' : 'column',
+  // flexWrap: 'wrap',
+  // alignSelf: 'center',
+  // flexGrow: 1,
+  margin: '0 auto',
   maxWidth: props.fullWidth ? null : `${widths.regularPageWidth}px`,
   width: '100%',
   padding: props.fullWidth ? 0 : unit * 2,
