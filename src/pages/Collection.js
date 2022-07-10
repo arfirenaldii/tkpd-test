@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 
 import { getStorageValue } from '../utils/useLocalStorage';
 
-import Layout from '../components/Layout';
+import Header from '../components/Header';
+import Grid from '../components/Grid';
+import Container from '../components/Container';
+
 import AnimeCard from '../components/Card/AnimeCard';
 
 function Collection({ id }) {
@@ -20,12 +23,18 @@ function Collection({ id }) {
   }
 
   return (
-    <Layout>
-      <h1>{collections.name}</h1>
-      {collections?.animes.map(anime =>
-        <AnimeCard key={anime.id} media={anime} />
-      )}
-    </Layout>
+    <>
+      <Header />
+      <Container>
+        <h1>{collections.name}</h1>
+        <br />
+        <Grid>
+          {collections?.animes.map(anime =>
+            <AnimeCard key={anime.id} media={anime} />
+          )}
+        </Grid>
+      </Container>
+    </>
   );
 };
 
