@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 
-import { getStorageValue } from '../utils/useLocalStorage';
+import { useLocalStorage } from '../utils/useLocalStorage';
 import Layout from '../components/Layout';
 import QueryResult from '../components/QueryResult';
 import Modal from '../components/Modal';
@@ -58,22 +58,6 @@ const EpisodeTitle = styled.p({
   margin: '0px',
 })
 
-function handleAddCollection(collections, checkedCollections, media, toggleModal) {
-  if (!collections) {
-    let collection = [{
-      name: 'Temporary',
-      animes: [media]
-    }]
-    localStorage.setItem('collections', JSON.stringify(collection));
-  } else {
-    checkedCollections.map(item => {
-      collections[item.index].animes.push(media);
-      localStorage.setItem('collections', JSON.stringify(collections));
-    });
-  }
-  toggleModal()
-}
-
 function AnimeTitle({ media }) {
   return (
     <div style={{ display: 'flex' }}>
@@ -86,30 +70,6 @@ function AnimeTitle({ media }) {
         <p style={{ margin: '0px' }}>{media.averageScore}%</p>
       </div>
     </div>
-  )
-}
-
-function CollectionModal({ media, show, toggleModal, collections, checkedCollections, handleChangeCollections }) {
-  return (
-    <Modal show={show} toggleModal={toggleModal}>
-      <AnimeTitle media={media} />
-      <br />
-      <hr />
-      <p><b>Collections</b></p>
-      <CollectionChecklist
-        collections={collections}
-        checkedCollections={checkedCollections}
-        handleChangeCollections={handleChangeCollections}
-      />
-      <br />
-      <button onClick={toggleModal}>Cancel</button>
-      <button
-        onClick={() => handleAddCollection(collections, checkedCollections, media, toggleModal)}
-        disabled={checkedCollections.length === 0}
-      >
-        Add
-      </button>
-    </Modal>
   )
 }
 
@@ -130,24 +90,14 @@ function CollectionChecklist({ collections, checkedCollections, handleChangeColl
 }
 
 function Anime({ id }) {
-  // const [collectionText, setCollectionText] = useState('');
-  const [collections, setCollections] = useState([]);
+  const [collections, setCollections] = useLocalStorage('collections', []);
   const [checkedCollections, setCheckedCollections] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    setCollections(getStorageValue('collections'))
-  }, []);
+  const [collectionName, setCollectionName] = useState('');
 
   useEffect(() => {
     setCheckedCollections([])
   }, [showModal]);
-
-  // useEffect(() => {
-  //   if (collections && collections.length === 0) {
-  //     setCollections(getStorageValue('collections'))
-  //   }
-  // }, [collections]);
 
   const { loading, error, data } = useQuery(ANIME, {
     variables: { mediaId: id }
@@ -164,21 +114,76 @@ function Anime({ id }) {
     setCheckedCollections(selectedCollections);
   }
 
+  const handleAddCollection = () => {
+    const media = data?.Media
+    if (!collections || collections.length === 0) {
+      let collection = [{
+        name: 'Temporary',
+        animes: [media]
+      }]
+      setCollections(collection)
+    } else {
+      let newCollections = [...collections]
+      checkedCollections.map(item => {
+        newCollections[item.index].animes.push(media);
+        setCollections(newCollections)
+      })
+    }
+    setShowModal(false)
+  }
+
+  const handleAddCollections = () => {
+    let newCollections = [...collections]
+    let collection = {
+      name: collectionName,
+      animes: []
+    }
+    newCollections.push(collection)
+    setCollections(newCollections)
+    setCollectionName('')
+  }
+
   return (
     <Layout>
       <QueryResult error={error} loading={loading} data={data}>
-        <CollectionModal
-          media={data?.Media}
-          collections={collections}
-          checkedCollections={checkedCollections}
+        <Modal
           show={showModal}
-          handleChangeCollections={handleChangeCollections}
           toggleModal={() => setShowModal(false)}
-        />
+        >
+          <AnimeTitle media={data?.Media} />
+          <br />
+          <hr />
+          <p><b>Collections</b></p>
+          <CollectionChecklist
+            collections={collections}
+            checkedCollections={checkedCollections}
+            handleChangeCollections={handleChangeCollections}
+          />
+          <br />
+          <div>
+            <input
+              type="text"
+              placeholder="Add Collection"
+              name="collection"
+              value={collectionName}
+              onChange={e => setCollectionName(e.target.value)}
+            />
+            <button onClick={() => handleAddCollections()} disabled={!collectionName}>Add Collection</button>
+          </div>
+          <br />
+          <button onClick={() => setShowModal(false)}>Cancel</button>
+          <button
+            onClick={() => handleAddCollection()}
+            disabled={checkedCollections.length === 0}
+          >
+            Add
+          </button>
+        </Modal>
         <AnimeTitle media={data?.Media} />
         <br />
         <button onClick={() => setShowModal(true)}>Add to Collection</button>
         <StyledDescription>{data?.Media.description}</StyledDescription>
+
         {data?.Media.streamingEpisodes.length > 0 &&
           <>
             <h2>Watch</h2>
@@ -192,17 +197,6 @@ function Anime({ id }) {
             )}
           </>
         }
-
-        {/* <br />
-        <div>
-          <input
-            type="text"
-            placeholder="Add Collection"
-            name="collection"
-            value={collectionText}
-            onChange={e => setCollectionText(e.target.value)}
-          />
-        </div> */}
       </QueryResult>
     </Layout>
   );
