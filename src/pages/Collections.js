@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Link } from '@reach/router';
 
@@ -37,11 +37,17 @@ function CollectionCover({ collection, index }) {
 
 function Collections() {
   const [collections, setCollections] = useLocalStorage('collections', []);
-  const [showModal, setShowModal] = useState(false);
+  const [showModalRemove, setShowModalRemove] = useState(false);
+  const [showModalAdd, setShowModalAdd] = useState(false);
   const [selectedCollection, setCollection] = useState('');
+  const [collectionName, setCollectionName] = useState('');
+
+  useEffect(() => {
+    setCollectionName('')
+  }, [showModalAdd]);
 
   const handleRemove = (collection) => {
-    setShowModal(true)
+    setShowModalRemove(true)
     setCollection(collection)
   }
 
@@ -50,27 +56,53 @@ function Collections() {
       return collection.name !== selectedCollection.name
     })
     setCollections(filteredCollection)
-    setShowModal(false)
+    setShowModalRemove(false)
+  }
+
+  const handleAddCollection = () => {
+    let newCollections = [...collections, {
+      name: collectionName,
+      animes: []
+    }]
+    setCollections(newCollections)
+    setShowModalAdd(false)
   }
 
   return (
     <Layout>
       <h1>Collection</h1>
       <br />
-      <button>Add Collection</button>
+      <button onClick={() => setShowModalAdd(true)}>Add Collection</button>
       <br />
       <br />
       <Modal
-        show={showModal}
-        toggleModal={() => setShowModal(false)}
+        show={showModalRemove}
+        toggleModal={() => setShowModalRemove(false)}
       >
         <p>
           <span>Remove </span>
           <b>{selectedCollection.name}</b>
           <span>?</span>
         </p>
-        <button onClick={() => setShowModal(false)}>Cancel</button>
+        <button onClick={() => setShowModalRemove(false)}>Cancel</button>
         <button onClick={() => handleRemoveCollection()}>Remove</button>
+      </Modal>
+      <Modal
+        show={showModalAdd}
+        toggleModal={() => setShowModalAdd(false)}
+      >
+        <p><b>Add Collection</b></p>
+        <input
+          type="text"
+          placeholder="Collection name"
+          name="collection"
+          value={collectionName}
+          onChange={e => setCollectionName(e.target.value)}
+        />
+        <br />
+        <br />
+        <button onClick={() => setShowModalAdd(false)}>Cancel</button>
+        <button onClick={() => handleAddCollection()} disabled={!collectionName}>Add</button>
       </Modal>
       <Grid>
         {collections && collections.map((collection, index) =>
