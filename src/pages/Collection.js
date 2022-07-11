@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 
 import { useLocalStorage } from '../utils/useLocalStorage';
 
-import Header from '../components/Header';
+import Layout from '../components/Layout';
 import Grid from '../components/Grid';
-import Container from '../components/Container';
 import Modal from '../components/Modal';
 
 import AnimeCard from '../components/Card/AnimeCard';
@@ -42,33 +41,33 @@ function Collection({ id }) {
   }
 
   return (
-    <>
-      <Header />
-      <Container>
-        <h1>{collection.name}</h1>
-        <br />
-        <Modal
-          show={showModalRemove}
-          toggleModal={() => setShowModalRemove(false)}
-        >
-          <p>
-            <span>Remove </span>
-            <b>{selectedAnime?.title?.romaji}</b>
-            <span>?</span>
-          </p>
-          <button onClick={() => setShowModalRemove(false)}>Cancel</button>
-          <button onClick={() => handleRemoveAnime()}>Remove</button>
-        </Modal>
-        <Grid>
-          {collection?.animes.map(anime =>
-            <div key={anime.id} >
-              <AnimeCard media={anime} />
-              <button onClick={() => handleRemove(anime)}>Remove</button>
-            </div>
-          )}
-        </Grid>
-      </Container>
-    </>
+    <Layout>
+      <Modal
+        show={showModalRemove}
+        toggleModal={() => setShowModalRemove(false)}
+      >
+        <p>
+          <span>Remove </span>
+          <b>{selectedAnime?.title?.romaji}</b>
+          <span>?</span>
+        </p>
+        <button onClick={() => setShowModalRemove(false)}>Cancel</button>
+        <button onClick={() => handleRemoveAnime()}>Remove</button>
+      </Modal>
+      <h1>{collection.name}</h1>
+      <br />
+      <button onClick={() => window.history.back()}>Back</button>
+      <br />
+      <br />
+      <Grid>
+        {collection?.animes.map(anime =>
+          <div key={anime.id} >
+            <AnimeCard media={anime} />
+            <button onClick={() => handleRemove(anime)}>Remove</button>
+          </div>
+        )}
+      </Grid>
+    </Layout>
   );
 };
 

@@ -81,11 +81,6 @@ function Collections() {
 
   return (
     <Layout>
-      <h1>Collection</h1>
-      <br />
-      <button onClick={() => setShowModalAdd(true)}>Add Collection</button>
-      <br />
-      <br />
       <Modal
         show={showModalRemove}
         toggleModal={() => setShowModalRemove(false)}
@@ -115,6 +110,11 @@ function Collections() {
         <button onClick={() => setShowModalAdd(false)}>Cancel</button>
         <button onClick={() => handleAddCollection()} disabled={!collectionName}>Add</button>
       </Modal>
+      <h1>Collection</h1>
+      <br />
+      <button onClick={() => setShowModalAdd(true)}>Add Collection</button>
+      <br />
+      <br />
       <Grid>
         {collections && collections.map((collection, index) =>
           <div key={collection.name}>
