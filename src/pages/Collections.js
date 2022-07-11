@@ -8,6 +8,9 @@ import Grid from '../components/Grid';
 import Modal from '../components/Modal';
 
 const Wrapper = styled(Link)({
+  display: 'flex',
+  flexDirection: 'column',
+  width: 'min-content',
   cursor: 'pointer',
   textDecoration: 'none',
   color: 'unset',
@@ -18,6 +21,14 @@ const DefaultCover = styled.div({
   width: '100px',
   height: '143px',
 });
+
+const Title = styled.p({
+  margin: '0px',
+  overflow: 'hidden',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '2',
+})
 
 function CollectionCover({ collection, index }) {
   return (
@@ -30,7 +41,7 @@ function CollectionCover({ collection, index }) {
         :
         <DefaultCover />
       }
-      <p style={{ margin: '0px' }}>{collection.name}</p>
+      <Title>{collection.name}</Title>
     </Wrapper>
   )
 }

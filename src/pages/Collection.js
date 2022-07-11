@@ -1,24 +1,43 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 
-import { getStorageValue } from '../utils/useLocalStorage';
+import { useLocalStorage } from '../utils/useLocalStorage';
 
 import Header from '../components/Header';
 import Grid from '../components/Grid';
 import Container from '../components/Container';
+import Modal from '../components/Modal';
 
 import AnimeCard from '../components/Card/AnimeCard';
 
 function Collection({ id }) {
-  const [collections, setCollections] = useState([]);
+  const [collections, setCollections] = useLocalStorage('collections', []);
+  const [collection, setCollection] = useState([]);
+  const [showModalRemove, setShowModalRemove] = useState(false);
+  const [selectedAnime, setAnime] = useState('');
 
   useEffect(() => {
-    if (collections && collections.length === 0) {
-      setCollections(getStorageValue('collections')[id])
+    if (collection && collection.length === 0) {
+      setCollection(collections[id])
     }
-  }, [collections]);
+  }, [collection]);
 
-  if (collections.length === 0) {
+  const handleRemove = (anime) => {
+    setShowModalRemove(true)
+    setAnime(anime)
+  }
+
+  const handleRemoveAnime = () => {
+    const filteredAnime = collection.animes.filter((anime) => {
+      return anime.id !== selectedAnime.id
+    })
+    let newCollections = [...collections]
+    newCollections[id].animes = filteredAnime
+    setCollections(newCollections)
+    setShowModalRemove(false)
+  }
+
+  if (collection.length === 0) {
     return <div />
   }
 
@@ -26,11 +45,26 @@ function Collection({ id }) {
     <>
       <Header />
       <Container>
-        <h1>{collections.name}</h1>
+        <h1>{collection.name}</h1>
         <br />
+        <Modal
+          show={showModalRemove}
+          toggleModal={() => setShowModalRemove(false)}
+        >
+          <p>
+            <span>Remove </span>
+            <b>{selectedAnime?.title?.romaji}</b>
+            <span>?</span>
+          </p>
+          <button onClick={() => setShowModalRemove(false)}>Cancel</button>
+          <button onClick={() => handleRemoveAnime()}>Remove</button>
+        </Modal>
         <Grid>
-          {collections?.animes.map(anime =>
-            <AnimeCard key={anime.id} media={anime} />
+          {collection?.animes.map(anime =>
+            <div key={anime.id} >
+              <AnimeCard media={anime} />
+              <button onClick={() => handleRemove(anime)}>Remove</button>
+            </div>
           )}
         </Grid>
       </Container>
