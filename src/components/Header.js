@@ -6,6 +6,7 @@ const Wrapper = styled.div({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-around',
+    marginBottom: '20px'
 });
 
 function Header() {

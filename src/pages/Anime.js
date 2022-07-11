@@ -96,6 +96,10 @@ function Anime({ id }) {
   const [collectionName, setCollectionName] = useState('');
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
+
+  useEffect(() => {
     setCheckedCollections([])
   }, [showModal]);
 
@@ -163,7 +167,7 @@ function Anime({ id }) {
           <div>
             <input
               type="text"
-              placeholder="Add Collection"
+              placeholder="Collection name"
               name="collection"
               value={collectionName}
               onChange={e => setCollectionName(e.target.value)}
