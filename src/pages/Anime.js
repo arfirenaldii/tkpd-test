@@ -58,12 +58,20 @@ const EpisodeTitle = styled.p({
   margin: '0px',
 })
 
+const StyledTitleH2 = styled.h2({
+  overflow: 'hidden',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '2',
+  textDecoration: 'none',
+})
+
 function AnimeTitle({ media }) {
   return (
     <div style={{ display: 'flex' }}>
       <img src={media.coverImage.medium} alt={media.title.romaji} />
       <div>
-        <h2>{media.title.romaji}</h2>
+        <StyledTitleH2>{media.title.romaji}</StyledTitleH2>
         <p style={{ margin: '0px' }}>{media.format}</p>
         <p style={{ margin: '0px' }}>{media.genres.map(genre => genre).join(', ')}</p>
         <p style={{ margin: '0px' }}>{media.episodes} Episode</p>
