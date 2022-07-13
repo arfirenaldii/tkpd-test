@@ -138,7 +138,6 @@ function CollectionChecklist({ collections, checkedCollections, handleChangeColl
             name={collection.name}
             checked={checkedCollections.some(e => e.name === collection.name)}
             onChange={(event) => handleChangeCollections(event.target.name, index)}
-            disabled
           />
         </ChecklistItem>
         <hr />
