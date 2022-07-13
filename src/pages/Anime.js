@@ -161,7 +161,6 @@ function AddCollectionInput({ collectionName, setCollectionName, handleAddCollec
         name="collection"
         value={collectionName}
         onChange={e => setCollectionName(e.target.value)}
-        style={{ width: '100%' }}
       />
       <StyledPlusIcon
         src={PlusIcon}

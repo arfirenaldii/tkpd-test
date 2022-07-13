@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 const Input = styled.input((props) => ({
@@ -6,8 +5,7 @@ const Input = styled.input((props) => ({
   background: 'transparent',
   borderBottom: '1px solid black',
   outline: 'none',
-
-  // border: '1px solid #ced4da',
+  width: '100%',
   color: '#212529',
   backgroundColor: '#fff',
   padding: '12px 0px',
@@ -22,18 +20,9 @@ const Input = styled.input((props) => ({
     backgroundColor: '#fff',
     border: 'none',
     background: 'transparent',
-    borderBottom: '3px solid black',
+    borderBottom: '1px solid black',
     outline: 'none',
-    // borderColor: '#86b7fe',
-    // outline: '0',
-    // boxShadow: '0 0 0 0.25rem rgb(13 110 253 / 25%)'
   }
 }));
-
-
-Input.propTypes = {
-  // media: PropTypes.object,
-  // to: PropTypes.string,
-};
 
 export default Input;

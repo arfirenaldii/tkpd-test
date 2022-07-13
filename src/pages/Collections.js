@@ -7,10 +7,31 @@ import Grid from '../components/Grid';
 import Modal from '../components/Modal';
 import CollectionCard from '../components/Card/CollectionCard';
 import Button from '../components/Button';
+import Input from '../components/Input';
+
+import PlusIcon from '../assets/plus-icon.svg';
 
 const CollectionWrapper = styled.div({
   border: '1px solid black',
   borderRadius: '8px',
+})
+
+const StyledPlusIcon = styled.img({
+  width: '32px',
+  '@media (min-width: 992px)': {
+    cursor: 'pointer',
+  },
+})
+
+const TitleWrapper = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+})
+
+const StyledButton = styled(Button)({
+  width: '100%',
+  marginBottom: '10px'
 })
 
 function Collections() {
@@ -53,19 +74,30 @@ function Collections() {
         toggleModal={() => setShowModalRemove(false)}
       >
         <p>
-          <span>Remove </span>
           <b>{selectedCollection.name}</b>
-          <span>?</span>
+          <span> will be removed</span>
         </p>
-        <button onClick={() => setShowModalRemove(false)}>Cancel</button>
-        <button onClick={() => handleRemoveCollection()}>Remove</button>
+        <p>Are you sure you want to remove the collection?</p>
+        <StyledButton
+          color="blue"
+          onClick={() => handleRemoveCollection()}
+        >
+          Remove
+        </StyledButton>
+        <StyledButton
+          color="black"
+          line={true}
+          onClick={() => setShowModalRemove(false)}
+        >
+          Cancel
+        </StyledButton>
       </Modal>
       <Modal
         show={showModalAdd}
         toggleModal={() => setShowModalAdd(false)}
       >
         <p><b>Add Collection</b></p>
-        <input
+        <Input
           type="text"
           placeholder="Collection name"
           name="collection"
@@ -74,13 +106,29 @@ function Collections() {
         />
         <br />
         <br />
-        <button onClick={() => setShowModalAdd(false)}>Cancel</button>
-        <button onClick={() => handleAddCollection()} disabled={!collectionName}>Add</button>
+        <StyledButton
+          color="blue"
+          onClick={() => handleAddCollection()}
+          disabled={!collectionName}
+        >
+          Add
+        </StyledButton>
+        <StyledButton
+          color="black"
+          line={true}
+          onClick={() => setShowModalAdd(false)}
+        >
+          Cancel
+        </StyledButton>
       </Modal>
-      <h1>Collection</h1>
-      <br />
-      <button onClick={() => setShowModalAdd(true)}>Add Collection</button>
-      <br />
+      <TitleWrapper>
+        <h1>Collection</h1>
+        <StyledPlusIcon
+          src={PlusIcon}
+          alt="plus"
+          onClick={() => setShowModalAdd(true)}
+        />
+      </TitleWrapper>
       <br />
       <Grid>
         {collections && collections.map((collection, index) =>
