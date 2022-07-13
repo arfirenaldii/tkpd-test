@@ -11,11 +11,6 @@ import Input from '../components/Input';
 
 import PlusIcon from '../assets/plus-icon.svg';
 
-const CollectionWrapper = styled.div({
-  border: '1px solid black',
-  borderRadius: '8px',
-})
-
 const StyledPlusIcon = styled.img({
   width: '32px',
   '@media (min-width: 992px)': {
@@ -132,23 +127,13 @@ function Collections() {
       <br />
       <Grid>
         {collections && collections.map((collection, index) =>
-          <CollectionWrapper key={collection.name}>
-            <CollectionCard
-              media={collection.animes[0]}
-              title={collection.name}
-              to={`/collection/${index}`}
-            />
-            <div style={{ padding: '10px' }}>
-              <Button
-                onClick={() => handleRemove(collection)}
-                color="black"
-                line={true}
-                style={{ width: '100%' }}
-              >
-                Remove
-              </Button>
-            </div>
-          </CollectionWrapper>
+          <CollectionCard
+            key={collection.name}
+            media={collection.animes[0]}
+            title={collection.name}
+            to={`/collection/${index}`}
+            onClickRemove={() => handleRemove(collection)}
+          />
         )}
       </Grid>
     </Layout>

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Link } from '@reach/router';
 
 import Img from '../../components/Img';
+import Button from '../../components/Button';
 
 const Wrapper = styled(Link)({
   display: 'flex',
@@ -34,16 +35,38 @@ const Title = styled.div({
   minHeight: '36px',
 })
 
-const CollectionCard = ({ media, title, to }) => {
+const CollectionWrapper = styled.div({
+  // border: '1px solid black',
+  borderRadius: '8px',
+  boxShadow: '0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%)'
+})
+
+const CollectionCard = ({ media, title, to, onClickRemove }) => {
   return (
-    <Wrapper to={to}>
-      {media ?
-        <CoverImage src={media.coverImage.large} alt={media.title.romaji} />
-        :
-        <DefaultCover />
-      }
-      <Title>{title}</Title>
-    </Wrapper>
+    <CollectionWrapper>
+      <Wrapper to={to}>
+        {media ?
+          <CoverImage src={media.coverImage.large} alt={media.title.romaji} />
+          :
+          <DefaultCover />
+        }
+        {title ?
+          <Title>{title}</Title>
+          :
+          <Title>{media.title.romaji}</Title>
+        }
+      </Wrapper>
+      <div style={{ padding: '10px' }}>
+        <Button
+          onClick={onClickRemove}
+          color="black"
+          // line={true}
+          style={{ width: '100%' }}
+        >
+          Remove
+        </Button>
+      </div>  
+    </CollectionWrapper>
   );
 };
 
@@ -51,6 +74,7 @@ CollectionCard.propTypes = {
   media: PropTypes.object,
   title: PropTypes.string,
   to: PropTypes.string,
+  onClickRemove: PropTypes.func,
 };
 
 export default CollectionCard;

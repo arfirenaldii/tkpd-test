@@ -1,13 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from "react";
+import styled from '@emotion/styled';
 
 import { useLocalStorage } from '../utils/useLocalStorage';
 
 import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import Modal from '../components/Modal';
+import Button from '../components/Button';
 
-import AnimeCard from '../components/Card/AnimeCard';
+import CollectionCard from '../components/Card/CollectionCard';
+
+const StyledButton = styled(Button)({
+  width: '100%',
+  marginBottom: '10px'
+})
 
 function Collection({ id }) {
   const [collections, setCollections] = useLocalStorage('collections', []);
@@ -47,12 +54,23 @@ function Collection({ id }) {
         toggleModal={() => setShowModalRemove(false)}
       >
         <p>
-          <span>Remove </span>
           <b>{selectedAnime?.title?.romaji}</b>
-          <span>?</span>
+          <span> will be removed</span>
         </p>
-        <button onClick={() => setShowModalRemove(false)}>Cancel</button>
-        <button onClick={() => handleRemoveAnime()}>Remove</button>
+        <p>Are you sure you want to remove the anime?</p>
+        <StyledButton
+          color="blue"
+          onClick={() => handleRemoveAnime()}
+        >
+          Remove
+        </StyledButton>
+        <StyledButton
+          color="black"
+          line={true}
+          onClick={() => setShowModalRemove(false)}
+        >
+          Cancel
+        </StyledButton>
       </Modal>
       <h1>{collection.name}</h1>
       <br />
@@ -61,10 +79,12 @@ function Collection({ id }) {
       <br />
       <Grid>
         {collection?.animes.map(anime =>
-          <div key={anime.id} >
-            <AnimeCard media={anime} to={`/anime/${anime.id}`} />
-            <button onClick={() => handleRemove(anime)}>Remove</button>
-          </div>
+          <CollectionCard
+            key={anime.id}
+            media={anime}
+            to={`/anime/${anime.id}`}
+            onClickRemove={() => handleRemove(anime)}
+          />
         )}
       </Grid>
     </Layout>
