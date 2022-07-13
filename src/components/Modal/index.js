@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div({
@@ -25,18 +26,23 @@ const Content = styled.div({
   },
 });
 
-const Modal = (props) => {
-  if (!props.show) {
+const Modal = ({ show, children }) => {
+  if (!show) {
     return null;
   };
 
   return (
     <Wrapper>
       <Content>
-        {props.children}
+        {children}
       </Content>
     </Wrapper>
   );
+};
+
+Modal.propTypes = {
+  show: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default Modal;

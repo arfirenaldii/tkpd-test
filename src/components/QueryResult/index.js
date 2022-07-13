@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 /**
@@ -22,6 +23,13 @@ const QueryResult = ({ loading, error, data, children }) => {
   if (data) {
     return children;
   }
+};
+
+QueryResult.propTypes = {
+  show: PropTypes.bool,
+  error: PropTypes.object,
+  data: PropTypes.array,
+  children: PropTypes.node,
 };
 
 export default QueryResult;
