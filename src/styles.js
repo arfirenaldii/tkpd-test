@@ -21,6 +21,17 @@ export const widths = {
 //   ...SKColors,
 // };
 
+export const colors = {
+  white: '#fefefe',
+  black: '#000000',
+  darkGrey: '#606060',
+  blue: '#065fd4',
+  disabled: {
+    background: '#ccc', // #E5E7E9
+    text: '#6C727C'
+  }
+}
+
 const GlobalStyles = () => (
   <Global
     styles={{

@@ -20,7 +20,8 @@ const Content = styled.div({
   backgroundColor: '#fefefe',
   margin: 'auto',
   padding: '20px',
-  width: '50%',
+  borderRadius: '8px',
+  maxWidth: '500px',
   "@media (max-width: 992px)": {
     width: '90%',
   },
