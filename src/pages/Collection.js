@@ -62,7 +62,7 @@ function Collection({ id }) {
       <Grid>
         {collection?.animes.map(anime =>
           <div key={anime.id} >
-            <AnimeCard media={anime} />
+            <AnimeCard media={anime} to={`/anime/${anime.id}`} />
             <button onClick={() => handleRemove(anime)}>Remove</button>
           </div>
         )}

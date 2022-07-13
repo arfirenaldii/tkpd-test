@@ -52,7 +52,11 @@ function Animes() {
       <QueryResult error={error} loading={page === 1 && loading} data={animes}>
         <Grid>
           {animes.map((media) =>
-            <AnimeCard key={media.id} media={media} />
+            <AnimeCard
+              key={media.id}
+              media={media}
+              to={`/anime/${media.id}`}
+            />
           )}
         </Grid>
         <br />

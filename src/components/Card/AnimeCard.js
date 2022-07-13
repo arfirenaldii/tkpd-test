@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { Link } from '@reach/router';
+
+import Img from '../../components/Img';
 
 const Wrapper = styled(Link)({
   display: 'flex',
@@ -11,9 +14,8 @@ const Wrapper = styled(Link)({
   color: 'unset',
 })
 
-const CoverImage = styled.img({
-  height: '185px',
-  borderRadius: '5px'
+const CoverImage = styled(Img)({
+  height: '185px'
 })
 
 const Title = styled.div({
@@ -24,13 +26,18 @@ const Title = styled.div({
   textDecoration: 'none',
 })
 
-const AnimeCard = ({ media }) => {
+const AnimeCard = ({ media, to }) => {
   return (
-    <Wrapper to={`/anime/${media.id}`}>
+    <Wrapper to={to}>
       <CoverImage src={media.coverImage.large} alt={media.title.romaji} />
       <Title>{media.title.romaji}</Title>
     </Wrapper>
   );
+};
+
+AnimeCard.propTypes = {
+  media: PropTypes.object,
+  to: PropTypes.string,
 };
 
 export default AnimeCard;

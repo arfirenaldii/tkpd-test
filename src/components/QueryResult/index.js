@@ -28,7 +28,10 @@ const QueryResult = ({ loading, error, data, children }) => {
 QueryResult.propTypes = {
   show: PropTypes.bool,
   error: PropTypes.object,
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
   children: PropTypes.node,
 };
 

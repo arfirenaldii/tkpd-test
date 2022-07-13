@@ -6,6 +6,7 @@ import { useLocalStorage } from '../utils/useLocalStorage';
 import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import Modal from '../components/Modal';
+import AnimeCard from '../components/Card/AnimeCard';
 
 const Wrapper = styled(Link)({
   display: 'flex',
@@ -18,8 +19,9 @@ const Wrapper = styled(Link)({
 
 const DefaultCover = styled.div({
   backgroundColor: 'grey',
-  width: '100px',
-  height: '143px',
+  width: '130px',
+  height: '185px',
+  borderRadius: '8px'
 });
 
 const Title = styled.p({
@@ -30,19 +32,25 @@ const Title = styled.p({
   WebkitLineClamp: '2',
 })
 
-function CollectionCover({ collection, index }) {
+function DefaultCoverAnime({ collection, index }) {
   return (
     <Wrapper to={`/collection/${index}`}>
-      {collection.animes.length > 0 ?
-        <img
-          src={collection.animes[0].coverImage.medium}
-          alt={collection.animes[0].title.romaji}
-        />
-        :
-        <DefaultCover />
-      }
+      <DefaultCover />
       <Title>{collection.name}</Title>
     </Wrapper>
+  )
+}
+
+function CollectionCover({ collection, index }) {
+  if (collection.animes.length === 0) {
+    return <DefaultCoverAnime collection={collection} index={index} />
+  }
+
+  return (
+    <AnimeCard
+      media={collection.animes[0]}
+      to={`/collection/${index}`}
+    />
   )
 }
 
