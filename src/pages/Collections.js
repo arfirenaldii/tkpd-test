@@ -1,58 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Link } from '@reach/router';
 
 import { useLocalStorage } from '../utils/useLocalStorage';
 import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import Modal from '../components/Modal';
-import AnimeCard from '../components/Card/AnimeCard';
+import CollectionCard from '../components/Card/CollectionCard';
+import Button from '../components/Button';
 
-const Wrapper = styled(Link)({
-  display: 'flex',
-  flexDirection: 'column',
-  width: 'min-content',
-  cursor: 'pointer',
-  textDecoration: 'none',
-  color: 'unset',
-});
-
-const DefaultCover = styled.div({
-  backgroundColor: 'grey',
-  width: '130px',
-  height: '185px',
-  borderRadius: '8px'
-});
-
-const Title = styled.p({
-  margin: '0px',
-  overflow: 'hidden',
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: '2',
+const CollectionWrapper = styled.div({
+  border: '1px solid black',
+  borderRadius: '8px',
 })
-
-function DefaultCoverAnime({ collection, index }) {
-  return (
-    <Wrapper to={`/collection/${index}`}>
-      <DefaultCover />
-      <Title>{collection.name}</Title>
-    </Wrapper>
-  )
-}
-
-function CollectionCover({ collection, index }) {
-  if (collection.animes.length === 0) {
-    return <DefaultCoverAnime collection={collection} index={index} />
-  }
-
-  return (
-    <AnimeCard
-      media={collection.animes[0]}
-      to={`/collection/${index}`}
-    />
-  )
-}
 
 function Collections() {
   const [collections, setCollections] = useLocalStorage('collections', []);
@@ -125,13 +84,23 @@ function Collections() {
       <br />
       <Grid>
         {collections && collections.map((collection, index) =>
-          <div key={collection.name}>
-            <CollectionCover
-              collection={collection}
-              index={index}
+          <CollectionWrapper key={collection.name}>
+            <CollectionCard
+              media={collection.animes[0]}
+              title={collection.name}
+              to={`/collection/${index}`}
             />
-            <button onClick={() => handleRemove(collection)}>Remove</button>
-          </div>
+            <div style={{ padding: '10px' }}>
+              <Button
+                onClick={() => handleRemove(collection)}
+                color="black"
+                line={true}
+                style={{ width: '100%' }}
+              >
+                Remove
+              </Button>
+            </div>
+          </CollectionWrapper>
         )}
       </Grid>
     </Layout>
