@@ -110,6 +110,12 @@ const ChecklistWrapper = styled.div({
   padding: '5px',
 })
 
+const ResponsiveButton = styled(Button)({
+  '@media (max-width: 992px)': {
+    width: '100%'
+  }
+})
+
 function AnimeTitle({ media }) {
   return (
     <>
@@ -279,19 +285,13 @@ function Anime({ id }) {
         </Modal>
         <AnimeTitle media={data?.Media} />
         <br />
-        <Button
+        <ResponsiveButton
           onClick={() => setShowModal(true)}
           color="black"
           line={true}
         >
           Add to Collection
-        </Button>
-        <Button
-          color="black"
-          line={true}
-        >
-          Share
-        </Button>
+        </ResponsiveButton>
         <StyledDescription>{data?.Media.description}</StyledDescription>
         <p style={{ margin: '0px' }}><b>Average Score: </b>{data?.Media.averageScore}%</p>
         <br />
