@@ -5,11 +5,11 @@ import Header from '../Header';
 
 import { widths, unit } from '../../styles';
 
-const Layout = ({ fullWidth, children, grid, showBack }) => {
+const Layout = ({ children, showBack }) => {
   return (
     <>
       <Header showBack={showBack} />
-      <PageContainer fullWidth={fullWidth} grid={grid}>
+      <PageContainer>
         {children}
       </PageContainer>
     </>
@@ -18,11 +18,11 @@ const Layout = ({ fullWidth, children, grid, showBack }) => {
 
 export default Layout;
 
-const PageContainer = styled.div((props) => ({
+const PageContainer = styled.div({
   margin: '0 auto',
-  maxWidth: props.fullWidth ? null : `${widths.regularPageWidth}px`,
+  maxWidth: `${widths.regularPageWidth}px`,
   width: '100%',
-  padding: props.fullWidth ? 0 : unit * 2,
+  padding: unit * 2,
   paddingBottom: unit * 5,
   paddingTop: '20px'
-}));
+});

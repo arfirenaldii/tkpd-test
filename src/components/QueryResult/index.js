@@ -19,7 +19,7 @@ const QueryResult = ({ loading, error, data, children }) => {
       </SpinnerContainer>
     );
   }
-  if (!data) {
+  if (!data || data.length === 0) {
     return <p>Nothing to show...</p>;
   }
   if (data) {
