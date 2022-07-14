@@ -16,6 +16,13 @@ const StyledButton = styled(Button)({
   marginBottom: '10px'
 })
 
+const StyledTitle = styled.h3({
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  wordBreak: 'break-all',
+  whiteSpace: 'nowrap',
+})
+
 function Collection({ id }) {
   const [collections, setCollections] = useLocalStorage('collections', []);
   const [collection, setCollection] = useState([]);
@@ -72,7 +79,7 @@ function Collection({ id }) {
           Cancel
         </StyledButton>
       </Modal>
-      <h3>{collection.name}</h3>
+      <StyledTitle>{collection.name}</StyledTitle>
       <br />
       <Grid>
         {collection?.animes.map(anime =>

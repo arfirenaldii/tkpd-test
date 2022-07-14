@@ -33,12 +33,19 @@ const Title = styled.div({
   WebkitLineClamp: '2',
   textDecoration: 'none',
   minHeight: '36px',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  wordBreak: 'break-all',
 })
 
 const CollectionWrapper = styled.div({
   // border: '1px solid black',
   borderRadius: '8px',
   boxShadow: '0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%)'
+})
+
+const ButtonWrapper = styled.div({
+  padding: '10px'
 })
 
 const CollectionCard = ({ media, title, to, onClickRemove }) => {
@@ -56,16 +63,15 @@ const CollectionCard = ({ media, title, to, onClickRemove }) => {
           <Title>{media.title.romaji}</Title>
         }
       </Wrapper>
-      <div style={{ padding: '10px' }}>
+      <ButtonWrapper>
         <Button
           onClick={onClickRemove}
           color="black"
-          // line={true}
           style={{ width: '100%' }}
         >
           Remove
         </Button>
-      </div>  
+      </ButtonWrapper>
     </CollectionWrapper>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
+import { Link } from '@reach/router';
 
 import { colors } from '../styles'
 
@@ -16,6 +17,7 @@ import Input from '../components/Input';
 import Warning from '../components/Input/Warning';
 
 import PlusIcon from '../assets/plus-icon.svg';
+import AngleRight from '../assets/angle-right.svg';
 
 export const ANIME = gql`
   query Media($mediaId: Int) {
@@ -100,9 +102,10 @@ const StyledPlusIcon = styled.img({
 })
 
 const ChecklistItem = styled.div({
-  padding: '10px 0px',
+  padding: '12px 0px',
+  paddingRight: '5px',
   display: 'flex',
-  justifyContent: 'space-between',
+  flexGrow: 1,
   alignItems: 'center',
   '@media (min-width: 992px)': {
     cursor: 'pointer',
@@ -122,9 +125,33 @@ const ResponsiveButton = styled(Button)({
 })
 
 const StyledLabel = styled.label((props) => ({
-  marginRight: '5px',
+  margin: '0px 5px',
   color: props.disabled ? colors.disabled.background : colors.black,
+  overflow: 'hidden',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '1',
+  textDecoration: 'none',
+  '@media (min-width: 992px)': {
+    cursor: 'pointer',
+  },
 }))
+
+const ChecklistFlex = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  paddingRight: '5px',
+})
+
+const StyledAngleRight = styled.img({
+  height: '20px',
+})
+
+const StyledLink = styled(Link)({
+  '@media (min-width: 992px)': {
+    cursor: 'pointer',
+  },
+})
 
 function isCollectionDisabled(collection, media) {
   return collection.animes.length > 0 && collection.animes.some(anime => anime.title.romaji === media.title.romaji)
@@ -151,16 +178,22 @@ function CollectionChecklist({ collections, checkedCollections, media, handleCha
   return (
     collections?.map((collection, index) =>
       <div key={`${collection.name} ${index}`}>
-        <ChecklistItem onClick={() => !isCollectionDisabled(collection, media) && handleChangeCollections(collection.name, index)}>
-          <StyledLabel disabled={isCollectionDisabled(collection, media)}>{collection.name}</StyledLabel>
-          <input
-            type="checkbox"
-            name={collection.name}
-            checked={checkedCollections.some(e => e.name === collection.name) || isCollectionDisabled(collection, media)}
-            onChange={(event) => handleChangeCollections(event.target.name, index)}
-            disabled={isCollectionDisabled(collection, media)}
-          />
-        </ChecklistItem>
+        <ChecklistFlex>
+          <ChecklistItem onClick={() => !isCollectionDisabled(collection, media) && handleChangeCollections(collection.name, index)}>
+            <input
+              type="checkbox"
+              name={collection.name}
+              checked={checkedCollections.some(e => e.name === collection.name) || isCollectionDisabled(collection, media)}
+              onChange={(event) => handleChangeCollections(event.target.name, index)}
+              disabled={isCollectionDisabled(collection, media)}
+            />
+            {/* <StyledLabel disabled={isCollectionDisabled(collection, media)}>{collection.name}</StyledLabel> */}
+            <StyledLabel>{collection.name}</StyledLabel>
+          </ChecklistItem>
+          <StyledLink to={`/collection/${index}`}>
+            <StyledAngleRight src={AngleRight} alt="angle right" />
+          </StyledLink>
+        </ChecklistFlex>
         <hr />
       </div>
     )
@@ -197,7 +230,7 @@ function AddCollectionInput({ collections, collectionName, setCollectionName, ha
 function AddCollection({ onClick }) {
   return (
     <ChecklistItem onClick={onClick}>
-      <div>Add new collection</div>
+      <div style={{ flexGrow: '1' }}>Add new collection</div>
       <StyledPlusIcon
         src={PlusIcon}
         alt="plus"
