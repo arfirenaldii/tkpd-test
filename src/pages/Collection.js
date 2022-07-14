@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import styled from '@emotion/styled';
+import { Link } from '@reach/router';
 
 import { useLocalStorage } from '../utils/useLocalStorage';
 
@@ -11,6 +12,8 @@ import Button from '../components/Button';
 
 import CollectionCard from '../components/Card/CollectionCard';
 import DummyGrid from '../components/Grid/DummyGrid';
+
+import Film from '../assets/film-disabled.svg'
 
 const StyledButton = styled(Button)({
   width: '100%',
@@ -23,6 +26,28 @@ const StyledTitle = styled.h3({
   wordBreak: 'break-all',
   whiteSpace: 'nowrap',
 })
+
+const EmptyWrapper = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '60vh',
+  flexDirection: 'column',
+})
+
+function EmptyState() {
+  return (
+    <EmptyWrapper>
+      <img src={Film} alt="film" style={{ width: '150px' }} />
+      <p>No animes in this collection yet</p>
+      <Link to="/">
+        <Button color="black" line={true}>
+          Add Anime
+        </Button>
+      </Link>
+    </EmptyWrapper>
+  )
+}
 
 function Collection({ id }) {
   const [collections, setCollections] = useLocalStorage('collections', []);
@@ -82,6 +107,9 @@ function Collection({ id }) {
       </Modal>
       <StyledTitle>{collection.name}</StyledTitle>
       <br />
+      {collection?.animes.length === 0 &&
+        <EmptyState />
+      }
       <Grid>
         {collection?.animes.map(anime =>
           <CollectionCard

@@ -14,6 +14,7 @@ import Warning from '../components/Input/Warning';
 import DummyGrid from '../components/Grid/DummyGrid';
 
 import PlusIcon from '../assets/plus-icon.svg';
+import Bookmark from '../assets/bookmark-disabled.svg';
 
 const StyledPlusIcon = styled.img({
   width: '32px',
@@ -36,6 +37,23 @@ const StyledButton = styled(Button)({
 const StyledTitle = styled.span({
   wordBreak: 'break-all',
 })
+
+const EmptyWrapper = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '60vh',
+  flexDirection: 'column',
+})
+
+function EmptyState() {
+  return (
+    <EmptyWrapper>
+      <img src={Bookmark} alt="film" style={{ width: '150px' }} />
+      <p>There are curently no collections</p>
+    </EmptyWrapper>
+  )
+}
 
 function Collections() {
   const [collections, setCollections] = useLocalStorage('collections', []);
@@ -140,6 +158,9 @@ function Collections() {
         />
       </TitleWrapper>
       <br />
+      {collections.length === 0 &&
+        <EmptyState />
+      }
       <Grid>
         {collections && collections.map((collection, index) =>
           <CollectionCard
