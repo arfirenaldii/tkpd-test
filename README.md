@@ -13,3 +13,5 @@ Running test
 ```Shell
 npm run test
 ```
+
+This app running on https://tkpd-test.herokuapp.com/
