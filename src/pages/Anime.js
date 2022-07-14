@@ -29,7 +29,7 @@ export const ANIME = gql`
         romaji
       }
       coverImage {
-        medium,
+        medium
         large
       }
       description
