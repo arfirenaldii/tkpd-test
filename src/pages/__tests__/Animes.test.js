@@ -5,7 +5,7 @@ import { MockedProvider } from '@apollo/client/testing';
 
 import Animes, { ANIMES } from '../Animes';
 
-describe('Collection page', () => {
+describe('Animes page', () => {
   it('render animes without error', async () => {
     const mocks = [
       {

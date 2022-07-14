@@ -28,42 +28,20 @@ export const ANIME = gql`
         native
         romaji
       }
-      bannerImage
       coverImage {
         medium
-        large
-        extraLarge
       }
       description
       episodes
       genres
       averageScore
       format
-      streamingEpisodes {
-        title
-        thumbnail
-        url
-        site
-      }
     }
   }
 `;
 
 const StyledDescription = styled.p({
   whiteSpace: 'pre-line'
-})
-
-const EpisodeWrapper = styled.div({
-  width: '150px',
-  display: 'inline-block',
-  marginRight: '20px'
-})
-
-const EpisodeTitle = styled.p({
-  textOverflow: 'ellipsis',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  margin: '0px',
 })
 
 const StyledTitle = styled.h3({
@@ -351,22 +329,7 @@ function Anime({ id }) {
           Add to Collection
         </ResponsiveButton>
         <StyledDescription dangerouslySetInnerHTML={{ __html: data?.Media.description }} />
-
         <p style={{ margin: '0px' }}><b>Average Score: </b>{data?.Media.averageScore}%</p>
-        <br />
-        {data?.Media.streamingEpisodes.length > 0 &&
-          <>
-            <h2>Watch</h2>
-            <br />
-            {data?.Media.streamingEpisodes.map((episode, index) =>
-              index < 4 &&
-              <EpisodeWrapper key={`episodes ${index}`}>
-                <img src={episode.thumbnail} alt={episode.title} style={{ width: '100%' }} />
-                <EpisodeTitle>{episode.title}</EpisodeTitle>
-              </EpisodeWrapper>
-            )}
-          </>
-        }
       </QueryResult>
     </Layout>
   );
