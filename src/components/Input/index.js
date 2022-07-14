@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const Input = styled.input((props) => ({
+const Input = styled.input({
   border: 'none',
   background: 'transparent',
   borderBottom: '1px solid black',
@@ -23,6 +23,6 @@ const Input = styled.input((props) => ({
     borderBottom: '1px solid black',
     outline: 'none',
   }
-}));
+});
 
 export default Input;

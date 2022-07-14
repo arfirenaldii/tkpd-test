@@ -205,6 +205,7 @@ function AddCollectionInput({ collections, collectionName, setCollectionName, ha
           type="text"
           placeholder="Collection name"
           name="collection"
+          autoComplete="off"
           value={collectionName}
           onChange={e => setCollectionName(e.target.value)}
         />
