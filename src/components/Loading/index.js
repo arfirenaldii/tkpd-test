@@ -5,7 +5,8 @@ import { ThreeDots } from 'react-loader-spinner';
 import { colors } from '../../styles'
 
 const Wrapper = styled.div({
-  margin: '0 auto',
+  display: 'flex',
+  justifyContent: 'center'
 })
 
 function Loading() {
