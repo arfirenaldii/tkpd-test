@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 import { colors, widths } from '../styles';
+
+import ArrowLeft from '../assets/arrow-left.svg';
+import Bookmark from '../assets/bookmark.svg';
 
 const Wrapper = styled.div({
     width: '100%',
@@ -28,17 +32,49 @@ const StyledMenu = styled(StyledLink)({
     color: colors.lightGrey
 })
 
-function Header() {
+const StyledArrow = styled.img({
+    height: '24px'
+})
+
+const ArrowWrapper = styled.div({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    '@media (min-width: 992px)': {
+        cursor: 'pointer',
+    },
+})
+
+const StyledImg = styled.img({
+    height: '24px'
+})
+
+function Header({ showBack }) {
     return (
         <Wrapper>
             <LinkWrapper>
-                <StyledLink to="/">
-                    <h3>MyAnime</h3>
-                </StyledLink>
-                <StyledMenu to="/collection">Collection</StyledMenu>
+                <ArrowWrapper>
+                    {showBack &&
+                        <StyledArrow
+                            src={ArrowLeft}
+                            alt="arrow left"
+                            onClick={() => window.history.back()}
+                        />
+                    }
+                    <StyledLink to="/">
+                        <h3>MyAnime</h3>
+                    </StyledLink>
+                </ArrowWrapper>
+                <StyledMenu to="/collection">
+                    <StyledImg src={Bookmark} alt="bookmark" />
+                </StyledMenu>
             </LinkWrapper>
         </Wrapper>
     );
+};
+
+Header.propTypes = {
+    showBack: PropTypes.bool,
 };
 
 export default Header;

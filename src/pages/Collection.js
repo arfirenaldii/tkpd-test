@@ -55,7 +55,7 @@ function Collection({ id }) {
   }
 
   return (
-    <Layout>
+    <Layout showBack={true}>
       <Modal
         show={showModalRemove}
         toggleModal={() => setShowModalRemove(false)}

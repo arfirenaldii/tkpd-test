@@ -305,7 +305,7 @@ function Anime({ id }) {
   }
 
   return (
-    <Layout>
+    <Layout showBack={true}>
       <QueryResult error={error} loading={loading} data={data}>
         <Modal
           show={showModal}
