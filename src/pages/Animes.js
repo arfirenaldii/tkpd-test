@@ -4,6 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import Header from '../components/Header';
 import QueryResult from '../components/QueryResult';
 import Grid from '../components/Grid';
+import Button from '../components/Button';
 
 import AnimeCard from '../components/Card/AnimeCard';
 
@@ -65,7 +66,13 @@ function Animes() {
         }
         {data?.Page.pageInfo.hasNextPage &&
           <div style={{ textAlign: 'center' }}>
-            <button onClick={() => setPage(page + 1)}>Load More</button>
+            <Button
+              color="black"
+              line={true}
+              onClick={() => setPage(page + 1)}
+            >
+              Load More
+            </Button>
           </div>
         }
         <br />
