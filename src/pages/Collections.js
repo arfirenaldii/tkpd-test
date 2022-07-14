@@ -11,6 +11,7 @@ import CollectionCard from '../components/Card/CollectionCard';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Warning from '../components/Input/Warning';
+import DummyGrid from '../components/Grid/DummyGrid';
 
 import PlusIcon from '../assets/plus-icon.svg';
 
@@ -30,6 +31,10 @@ const TitleWrapper = styled.div({
 const StyledButton = styled(Button)({
   width: '100%',
   marginBottom: '10px'
+})
+
+const StyledTitle = styled.span({
+  wordBreak: 'break-all',
 })
 
 function Collections() {
@@ -72,7 +77,7 @@ function Collections() {
         toggleModal={() => setShowModalRemove(false)}
       >
         <p>
-          <b>{selectedCollection.name}</b>
+          <b><StyledTitle>{selectedCollection.name}</StyledTitle></b>
           <span> will be removed</span>
         </p>
         <p>Are you sure you want to remove the collection?</p>
@@ -145,6 +150,9 @@ function Collections() {
             onClickRemove={() => handleRemove(collection)}
           />
         )}
+        {collections.length < 5 &&
+          <DummyGrid collections={collections} />
+        }
       </Grid>
     </Layout>
   );

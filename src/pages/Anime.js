@@ -49,10 +49,6 @@ export const ANIME = gql`
   }
 `;
 
-const BannerImg = styled.img({
-  width: '100%'
-})
-
 const StyledDescription = styled.p({
   whiteSpace: 'pre-line'
 })
@@ -170,7 +166,6 @@ function AnimeTitle({ media }) {
           <p style={{ margin: '0px' }}>{media.format}</p>
           <p style={{ margin: '0px' }}>{media.genres.map(genre => genre).join(', ')}</p>
           <p style={{ margin: '0px' }}>{media.episodes} Episode</p>
-          <p style={{ margin: '0px' }}>{media.averageScore}%</p>
         </AnimeWrapper>
       </div>
     </>
@@ -190,7 +185,6 @@ function CollectionChecklist({ collections, checkedCollections, media, handleCha
               onChange={(event) => handleChangeCollections(event.target.name, index)}
               disabled={isCollectionDisabled(collection, media)}
             />
-            {/* <StyledLabel disabled={isCollectionDisabled(collection, media)}>{collection.name}</StyledLabel> */}
             <StyledLabel>{collection.name}</StyledLabel>
           </ChecklistItem>
           <StyledLink to={`/collection/${index}`}>
@@ -311,9 +305,6 @@ function Anime({ id }) {
           show={showModal}
           toggleModal={() => setShowModal(false)}
         >
-          {/* <AnimeTitle media={data?.Media} />
-          <br />
-          <hr /> */}
           <p><b>Add to Collection</b></p>
           <ChecklistWrapper>
             <CollectionChecklist

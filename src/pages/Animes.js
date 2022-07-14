@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
 
-import Header from '../components/Header';
+import Layout from '../components/Layout';
 import QueryResult from '../components/QueryResult';
 import Grid from '../components/Grid';
 import Button from '../components/Button';
@@ -49,8 +49,7 @@ function Animes() {
   }, [data])
 
   return (
-    <>
-      <Header />
+    <Layout>
       <QueryResult error={error} loading={page === 1 && loading} data={animes}>
         <Grid>
           {animes.map((media) =>
@@ -78,7 +77,7 @@ function Animes() {
         }
         <br />
       </QueryResult>
-    </>
+    </Layout>
   );
 }
 

@@ -5,10 +5,6 @@ import Header from '../Header';
 
 import { widths, unit } from '../../styles';
 
-/**
- * Layout renders the full page content:
- * with header, Page container and footer
- */
 const Layout = ({ fullWidth, children, grid, showBack }) => {
   return (
     <>
@@ -22,14 +18,7 @@ const Layout = ({ fullWidth, children, grid, showBack }) => {
 
 export default Layout;
 
-/** Layout styled components */
 const PageContainer = styled.div((props) => ({
-  // display: 'flex',
-  // justifyContent: props.grid ? 'center' : 'top',
-  // flexDirection: props.grid ? 'row' : 'column',
-  // flexWrap: 'wrap',
-  // alignSelf: 'center',
-  // flexGrow: 1,
   margin: '0 auto',
   maxWidth: props.fullWidth ? null : `${widths.regularPageWidth}px`,
   width: '100%',

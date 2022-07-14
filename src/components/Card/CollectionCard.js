@@ -7,26 +7,26 @@ import Img from '../../components/Img';
 import Button from '../../components/Button';
 
 const Wrapper = styled(Link)({
-  display: 'flex',
-  flexDirection: 'column',
-  width: 'min-content',
   cursor: 'pointer',
   textDecoration: 'none',
   color: 'unset',
 })
 
 const CoverImage = styled(Img)({
-  height: '185px'
+  objectFit: 'cover',
+  width: '100%',
+  height: '250px',
 })
 
 const DefaultCover = styled.div({
   backgroundColor: 'grey',
-  width: '130px',
-  height: '185px',
+  height: '250px',
+  objectFit: 'cover',
   borderRadius: '8px'
 });
 
 const Title = styled.div({
+  padding: '0px 10px',
   overflow: 'hidden',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
@@ -34,12 +34,10 @@ const Title = styled.div({
   textDecoration: 'none',
   minHeight: '36px',
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
   wordBreak: 'break-all',
 })
 
 const CollectionWrapper = styled.div({
-  // border: '1px solid black',
   borderRadius: '8px',
   boxShadow: '0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%)'
 })

@@ -10,6 +10,7 @@ import Modal from '../components/Modal';
 import Button from '../components/Button';
 
 import CollectionCard from '../components/Card/CollectionCard';
+import DummyGrid from '../components/Grid/DummyGrid';
 
 const StyledButton = styled(Button)({
   width: '100%',
@@ -90,6 +91,9 @@ function Collection({ id }) {
             onClickRemove={() => handleRemove(anime)}
           />
         )}
+        {collection?.animes.length < 5 &&
+          <DummyGrid collections={collection?.animes} />
+        }
       </Grid>
     </Layout>
   );

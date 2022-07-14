@@ -6,19 +6,19 @@ import { Link } from '@reach/router';
 import Img from '../../components/Img';
 
 const Wrapper = styled(Link)({
-  display: 'flex',
-  flexDirection: 'column',
-  width: 'min-content',
   cursor: 'pointer',
   textDecoration: 'none',
   color: 'unset',
 })
 
 const CoverImage = styled(Img)({
-  height: '185px'
+  objectFit: 'cover',
+  width: '100%',
+  height: '250px',
 })
 
 const Title = styled.div({
+  marginTop: '10px',
   overflow: 'hidden',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
