@@ -358,7 +358,8 @@ function Anime({ id }) {
         >
           Add to Collection
         </ResponsiveButton>
-        <StyledDescription>{data?.Media.description}</StyledDescription>
+        <StyledDescription dangerouslySetInnerHTML={{ __html: data?.Media.description }} />
+
         <p style={{ margin: '0px' }}><b>Average Score: </b>{data?.Media.averageScore}%</p>
         <br />
         {data?.Media.streamingEpisodes.length > 0 &&
