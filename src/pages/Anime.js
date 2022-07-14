@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 
+import { colors } from '../styles'
+
 import { useLocalStorage } from '../utils/useLocalStorage';
 import Layout from '../components/Layout';
 import QueryResult from '../components/QueryResult';
@@ -116,6 +118,15 @@ const ResponsiveButton = styled(Button)({
   }
 })
 
+const StyledLabel = styled.label((props) => ({
+  marginRight: '5px',
+  color: props.disabled ? colors.disabled.background : colors.black,
+}))
+
+function isCollectionDisabled(collection, media) {
+  return collection.animes.length > 0 && collection.animes.some(anime => anime.title.romaji === media.title.romaji)
+}
+
 function AnimeTitle({ media }) {
   return (
     <>
@@ -133,17 +144,18 @@ function AnimeTitle({ media }) {
   )
 }
 
-function CollectionChecklist({ collections, checkedCollections, handleChangeCollections }) {
+function CollectionChecklist({ collections, checkedCollections, media, handleChangeCollections }) {
   return (
     collections?.map((collection, index) =>
       <div key={`${collection.name} ${index}`}>
-        <ChecklistItem onClick={() => handleChangeCollections(collection.name, index)}>
-          <label style={{ marginRight: '5px' }}>{collection.name}</label>
+        <ChecklistItem onClick={() => !isCollectionDisabled(collection, media) && handleChangeCollections(collection.name, index)}>
+          <StyledLabel disabled={isCollectionDisabled(collection, media)}>{collection.name}</StyledLabel>
           <input
             type="checkbox"
             name={collection.name}
             checked={checkedCollections.some(e => e.name === collection.name)}
             onChange={(event) => handleChangeCollections(event.target.name, index)}
+            disabled={isCollectionDisabled(collection, media)}
           />
         </ChecklistItem>
         <hr />
@@ -168,6 +180,18 @@ function AddCollectionInput({ collectionName, setCollectionName, handleAddCollec
         onClick={() => collectionName && handleAddCollections()}
       />
     </ModalInputWrapper>
+  )
+}
+
+function AddCollection({ onClick }) {
+  return (
+    <ChecklistItem onClick={onClick}>
+      <div>Add new collection</div>
+      <StyledPlusIcon
+        src={PlusIcon}
+        alt="plus"
+      />
+    </ChecklistItem>
   )
 }
 
@@ -249,6 +273,7 @@ function Anime({ id }) {
               collections={collections}
               checkedCollections={checkedCollections}
               handleChangeCollections={handleChangeCollections}
+              media={data?.Media}
             />
             {showInputCollection ?
               <AddCollectionInput
@@ -257,13 +282,7 @@ function Anime({ id }) {
                 handleAddCollections={handleAddCollections}
               />
               :
-              <ChecklistItem onClick={() => toggleShowInputCollection(true)}>
-                <div>Add new collection</div>
-                <StyledPlusIcon
-                  src={PlusIcon}
-                  alt="plus"
-                />
-              </ChecklistItem>
+              <AddCollection onClick={() => toggleShowInputCollection(true)} />
             }
           </ChecklistWrapper>
           <br />
