@@ -10,16 +10,6 @@ export const widths = {
   regularPageWidth: 1000,
   textPageWidth: 800,
 };
-// export const colors = {
-//   primary: SKColors.indigo.base,
-//   secondary: SKColors.teal.base,
-//   accent: SKColors.pink.base,
-//   background: SKColors.silver.light,
-//   grey: SKColors.silver.dark,
-//   text: SKColors.black.base,
-//   textSecondary: SKColors.grey.dark,
-//   ...SKColors,
-// };
 
 export const colors = {
   white: '#fefefe',
@@ -43,9 +33,7 @@ const GlobalStyles = () => (
       body: {
         margin: 0,
         padding: 0,
-        fontFamily: "'Source Sans Pro', sans-serif",
-        // backgroundColor: colors.background,
-        // color: colors.text,
+        fontFamily: "'Roboto', sans-serif",
       },
       '#root': {
         display: 'flex',
