@@ -3,10 +3,10 @@ import { Link } from '@reach/router';
 import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 
-import { colors, widths } from '../styles';
+import { colors, widths } from '../../styles';
 
-import ArrowLeft from '../assets/arrow-left.svg';
-import Bookmark from '../assets/bookmark.svg';
+import ArrowLeft from '../../assets/arrow-left.svg';
+import Bookmark from '../../assets/bookmark.svg';
 
 const Wrapper = styled.div({
     width: '100%',
