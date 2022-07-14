@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import QueryResult from '../components/QueryResult';
 import Grid from '../components/Grid';
 import Button from '../components/Button';
+import Loading from '../components/Loading';
 
 import AnimeCard from '../components/Card/AnimeCard';
 
@@ -62,7 +63,7 @@ function Animes() {
         </Grid>
         <br />
         {loading &&
-          <div style={{ textAlign: 'center' }}>Loading...</div>
+          <Loading />
         }
         {data?.Page.pageInfo.hasNextPage &&
           <div style={{ textAlign: 'center' }}>

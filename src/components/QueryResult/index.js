@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
+import Loading from '../Loading';
+
 /**
  * Query Results conditionally renders Apollo useQuery hooks states:
  * loading, error or its children when data is ready
@@ -13,7 +15,7 @@ const QueryResult = ({ loading, error, data, children }) => {
   if (loading) {
     return (
       <SpinnerContainer>
-        <div>Loading...</div>
+        <Loading />
       </SpinnerContainer>
     );
   }
