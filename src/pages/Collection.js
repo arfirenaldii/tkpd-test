@@ -72,7 +72,7 @@ function Collection({ id }) {
           Cancel
         </StyledButton>
       </Modal>
-      <h1>{collection.name}</h1>
+      <h3>{collection.name}</h3>
       <br />
       <Grid>
         {collection?.animes.map(anime =>

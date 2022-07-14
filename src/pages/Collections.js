@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import { useLocalStorage } from '../utils/useLocalStorage';
+import { isCollectionExist, regexCollection } from '../utils/validation'
+
 import Layout from '../components/Layout';
 import Grid from '../components/Grid';
 import Modal from '../components/Modal';
 import CollectionCard from '../components/Card/CollectionCard';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import Warning from '../components/Input/Warning';
 
 import PlusIcon from '../assets/plus-icon.svg';
 
@@ -92,19 +95,26 @@ function Collections() {
         toggleModal={() => setShowModalAdd(false)}
       >
         <p><b>Add Collection</b></p>
-        <Input
-          type="text"
-          placeholder="Collection name"
-          name="collection"
-          value={collectionName}
-          onChange={e => setCollectionName(e.target.value)}
-        />
-        <br />
+        <div>
+          <Input
+            type="text"
+            placeholder="Collection name"
+            name="collection"
+            value={collectionName}
+            onChange={e => setCollectionName(e.target.value)}
+          />
+          {isCollectionExist(collections, collectionName) &&
+            <Warning>Collection name already exist</Warning>
+          }
+          {!regexCollection(collectionName) &&
+            <Warning>Collection cannot include special character</Warning>
+          }
+        </div>
         <br />
         <StyledButton
           color="blue"
           onClick={() => handleAddCollection()}
-          disabled={!collectionName}
+          disabled={!collectionName || isCollectionExist(collections, collectionName) || !regexCollection(collectionName)}
         >
           Add
         </StyledButton>
@@ -117,7 +127,7 @@ function Collections() {
         </StyledButton>
       </Modal>
       <TitleWrapper>
-        <h1>Collection</h1>
+        <h3>Collection</h3>
         <StyledPlusIcon
           src={PlusIcon}
           alt="plus"

@@ -5,12 +5,15 @@ import styled from '@emotion/styled';
 import { colors } from '../styles'
 
 import { useLocalStorage } from '../utils/useLocalStorage';
+import { isCollectionExist, regexCollection } from '../utils/validation';
+
 import Layout from '../components/Layout';
 import QueryResult from '../components/QueryResult';
 import Modal from '../components/Modal';
 import Img from '../components/Img';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import Warning from '../components/Input/Warning';
 
 import PlusIcon from '../assets/plus-icon.svg';
 
@@ -153,7 +156,7 @@ function CollectionChecklist({ collections, checkedCollections, media, handleCha
           <input
             type="checkbox"
             name={collection.name}
-            checked={checkedCollections.some(e => e.name === collection.name)}
+            checked={checkedCollections.some(e => e.name === collection.name) || isCollectionDisabled(collection, media)}
             onChange={(event) => handleChangeCollections(event.target.name, index)}
             disabled={isCollectionDisabled(collection, media)}
           />
@@ -164,22 +167,30 @@ function CollectionChecklist({ collections, checkedCollections, media, handleCha
   )
 }
 
-function AddCollectionInput({ collectionName, setCollectionName, handleAddCollections }) {
+function AddCollectionInput({ collections, collectionName, setCollectionName, handleAddCollections }) {
   return (
-    <ModalInputWrapper>
-      <Input
-        type="text"
-        placeholder="Collection name"
-        name="collection"
-        value={collectionName}
-        onChange={e => setCollectionName(e.target.value)}
-      />
-      <StyledPlusIcon
-        src={PlusIcon}
-        alt="plus"
-        onClick={() => collectionName && handleAddCollections()}
-      />
-    </ModalInputWrapper>
+    <div>
+      <ModalInputWrapper>
+        <Input
+          type="text"
+          placeholder="Collection name"
+          name="collection"
+          value={collectionName}
+          onChange={e => setCollectionName(e.target.value)}
+        />
+        <StyledPlusIcon
+          src={PlusIcon}
+          alt="plus"
+          onClick={() => !isCollectionExist(collections, collectionName) && regexCollection(collectionName) && collectionName && handleAddCollections()}
+        />
+      </ModalInputWrapper>
+      {isCollectionExist(collections, collectionName) &&
+        <Warning>Collection name already exist</Warning>
+      }
+      {!regexCollection(collectionName) &&
+        <Warning>Collection cannot include special character</Warning>
+      }
+    </div>
   )
 }
 
@@ -277,6 +288,7 @@ function Anime({ id }) {
             />
             {showInputCollection ?
               <AddCollectionInput
+                collections={collections}
                 collectionName={collectionName}
                 setCollectionName={setCollectionName}
                 handleAddCollections={handleAddCollections}

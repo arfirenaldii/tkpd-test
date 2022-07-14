@@ -27,6 +27,7 @@ export const colors = {
   darkGrey: '#606060',
   lightGrey: '#ccc',
   blue: '#065fd4',
+  red: '#f00',
   disabled: {
     background: '#ccc', // #E5E7E9
     text: '#6C727C'
