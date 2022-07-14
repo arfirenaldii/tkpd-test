@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { widths } from '../styles';
 
 const Grid = styled.div({
+  paddingTop: '20px',
   display: 'grid',
   gridTemplateColumns: 'repeat(5, 1fr)',
   gap: '10px',

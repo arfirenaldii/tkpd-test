@@ -35,4 +35,5 @@ const PageContainer = styled.div((props) => ({
   width: '100%',
   padding: props.fullWidth ? 0 : unit * 2,
   paddingBottom: unit * 5,
+  paddingTop: '20px'
 }));

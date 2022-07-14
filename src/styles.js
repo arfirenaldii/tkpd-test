@@ -25,6 +25,7 @@ export const colors = {
   white: '#fefefe',
   black: '#000000',
   darkGrey: '#606060',
+  lightGrey: '#ccc',
   blue: '#065fd4',
   disabled: {
     background: '#ccc', // #E5E7E9

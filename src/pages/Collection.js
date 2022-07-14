@@ -74,9 +74,6 @@ function Collection({ id }) {
       </Modal>
       <h1>{collection.name}</h1>
       <br />
-      <button onClick={() => window.history.back()}>Back</button>
-      <br />
-      <br />
       <Grid>
         {collection?.animes.map(anime =>
           <CollectionCard
