@@ -131,6 +131,9 @@ const StyledLabel = styled.label((props) => ({
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: '1',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  wordBreak: 'break-all',
   textDecoration: 'none',
   '@media (min-width: 992px)': {
     cursor: 'pointer',
